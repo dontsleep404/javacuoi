@@ -19,7 +19,7 @@ public class World implements IRender{
 		entities = new ArrayList<Entity>();
 		queue = new ArrayList<Entity>();
 	}
-	public OtherPlayer getPlayer(int id) {
+	public synchronized OtherPlayer getPlayer(int id) {
 		for(Entity e : entities) {
 			if(e instanceof OtherPlayer && e.getId() == id) {
 				return (OtherPlayer) e;
@@ -27,7 +27,7 @@ public class World implements IRender{
 		}
 		return null;
 	}
-	public Particle getBullet(int id) {
+	public synchronized Particle getBullet(int id) {
 		for(Entity e : entities) {
 			if(e instanceof Particle && e.getId() == id) {
 				return (Particle) e;
@@ -35,7 +35,7 @@ public class World implements IRender{
 		}
 		return null;
 	}
-	public List<Entity> getEntities() {
+	public synchronized List<Entity> getEntities() {
 		return entities;
 	}
 	public void setEntities(List<Entity> entities) {
@@ -68,7 +68,7 @@ public class World implements IRender{
 			if(e instanceof Particle && ((Particle) e).isOverTime()) {
 				removes.add(e);
 			}	
-			if(e instanceof OtherPlayer && !((OtherPlayer) e).isConnect()) {
+			if(e instanceof OtherPlayer && (!((OtherPlayer) e).isConnect() || ((OtherPlayer) e).getHealth() <= 0)) {
 				removes.add(e);
 			}
 		}

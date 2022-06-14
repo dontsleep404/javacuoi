@@ -161,7 +161,6 @@ public class Game extends JPanel implements IRender, MouseListener, MouseMotionL
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
-		System.out.println(e.getButton());
 		getGameState().getMouse()[e.getButton()] = true;
 	}
 	@Override
@@ -236,7 +235,7 @@ class Client extends CSocket{
 			float speed = 1000f;
 			float moX = (float) (Math.cos(pac.getAngle()) * speed);
 			float moY = (float) (Math.sin(pac.getAngle()) * speed);
-			Particle par = new Particle(pac.getPosX(), pac.getPosY(), moX, moY, 1000 - (new Date().getTime() - pac.getSpawnTime()));
+			Particle par = new Particle(pac.getPosX(), pac.getPosY(), moX, moY, 10000 - (new Date().getTime() - pac.getSpawnTime()));
 			par.setId(pac.getId());
 			game.getWorld().getQueue().add(par);
 		}
